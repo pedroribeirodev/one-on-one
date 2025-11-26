@@ -1,12 +1,13 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { labels } from "@/lib/locales/pt-br"
 
 export default function DashboardPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+        <h1 className="text-3xl font-bold tracking-tight">{labels.dashboard.title}</h1>
         <p className="text-muted-foreground">
-          Welcome to Syncly - your 1:1 meeting management tool
+          {labels.dashboard.subtitle}
         </p>
       </div>
       
@@ -14,52 +15,52 @@ export default function DashboardPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
-              Total Developers
+              {labels.dashboard.totalDevelopers}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">0</div>
             <p className="text-xs text-muted-foreground">
-              Team members you manage
+              {labels.dashboard.teamMembersYouManage}
             </p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
-              Upcoming 1:1s
+              {labels.dashboard.upcomingMeetings}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">0</div>
             <p className="text-xs text-muted-foreground">
-              Scheduled this week
+              {labels.dashboard.scheduledThisWeek}
             </p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
-              Action Items
+              {labels.dashboard.actionItems}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">0</div>
             <p className="text-xs text-muted-foreground">
-              Pending follow-ups
+              {labels.dashboard.pendingFollowups}
             </p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
-              Completed 1:1s
+              {labels.dashboard.completedMeetings}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">0</div>
             <p className="text-xs text-muted-foreground">
-              This month
+              {labels.dashboard.thisMonth}
             </p>
           </CardContent>
         </Card>

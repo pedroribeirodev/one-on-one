@@ -1,4 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { labels } from "@/lib/locales/pt-br"
 
 interface DeveloperPageProps {
   params: Promise<{
@@ -12,33 +13,33 @@ export default async function DeveloperPage({ params }: DeveloperPageProps) {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Developer Profile</h1>
+        <h1 className="text-3xl font-bold tracking-tight">{labels.developerProfile.title}</h1>
         <p className="text-muted-foreground">
-          View and manage 1:1 meetings for this developer
+          {labels.developerProfile.subtitle}
         </p>
       </div>
       
       <div className="grid gap-6 md:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle>Profile</CardTitle>
-            <CardDescription>Developer ID: {id}</CardDescription>
+            <CardTitle>{labels.developerProfile.profile}</CardTitle>
+            <CardDescription>{labels.developerProfile.developerId}: {id}</CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              Developer profile will be displayed here.
+              {labels.developerProfile.profileWillBeDisplayed}
             </p>
           </CardContent>
         </Card>
         
         <Card>
           <CardHeader>
-            <CardTitle>Meeting History</CardTitle>
-            <CardDescription>Past 1:1 meetings</CardDescription>
+            <CardTitle>{labels.developerProfile.meetingHistory}</CardTitle>
+            <CardDescription>{labels.developerProfile.pastMeetings}</CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              No meetings recorded yet.
+              {labels.developerProfile.noMeetingsYet}
             </p>
           </CardContent>
         </Card>

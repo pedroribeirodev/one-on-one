@@ -3,6 +3,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
+import { labels } from '@/lib/locales/pt-br'
 
 function generateSlug(companyName: string): string {
   return companyName
@@ -46,16 +47,16 @@ export async function signup(data: SignupData): Promise<AuthResult> {
 
   if (authError) {
     if (authError.message.includes('already registered')) {
-      return { error: 'An account with this email already exists' }
+      return { error: labels.messages.error.accountAlreadyExists }
     }
     if (authError.message.includes('password')) {
-      return { error: 'Password must be at least 6 characters' }
+      return { error: labels.messages.error.passwordTooShort }
     }
     return { error: authError.message }
   }
 
   if (!authData.user) {
-    return { error: 'Failed to create user' }
+    return { error: labels.messages.error.failedToCreateUser }
   }
 
   const slug = generateSlug(data.companyName)
@@ -72,7 +73,7 @@ export async function signup(data: SignupData): Promise<AuthResult> {
     .single()
 
   if (workspaceError) {
-    return { error: 'Failed to create workspace. Please try again.' }
+    return { error: labels.messages.error.failedToCreateWorkspace }
   }
 
   const { error: memberError } = await supabase
@@ -84,7 +85,7 @@ export async function signup(data: SignupData): Promise<AuthResult> {
     })
 
   if (memberError) {
-    return { error: 'Failed to set up workspace membership. Please try again.' }
+    return { error: labels.messages.error.failedToSetupWorkspace }
   }
 
   revalidatePath('/', 'layout')
@@ -101,7 +102,7 @@ export async function login(data: LoginData): Promise<AuthResult> {
 
   if (error) {
     if (error.message.includes('Invalid login credentials')) {
-      return { error: 'Invalid email or password' }
+      return { error: labels.messages.error.invalidCredentials }
     }
     return { error: error.message }
   }
@@ -128,7 +129,7 @@ export async function loginWithGoogle(): Promise<AuthResult> {
     redirect(data.url)
   }
 
-  return { error: 'Failed to initiate Google sign in' }
+  return { error: labels.messages.error.failedToInitiateGoogleSignIn }
 }
 
 export async function logout(): Promise<void> {

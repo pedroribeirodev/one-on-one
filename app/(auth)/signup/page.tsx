@@ -19,21 +19,22 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { signup, loginWithGoogle } from '@/lib/auth/actions'
+import { labels } from '@/lib/locales/pt-br'
 
 const signupSchema = z.object({
-  email: z.string().email('Please enter a valid email address'),
+  email: z.string().email(labels.forms.pleaseEnterValidEmail),
   password: z
     .string()
-    .min(6, 'Password must be at least 6 characters')
-    .max(72, 'Password must be less than 72 characters'),
+    .min(6, labels.forms.passwordMinLength)
+    .max(72, labels.forms.passwordMaxLength),
   fullName: z
     .string()
-    .min(2, 'Name must be at least 2 characters')
-    .max(100, 'Name must be less than 100 characters'),
+    .min(2, labels.forms.nameMinLength)
+    .max(100, labels.forms.nameMaxLength),
   companyName: z
     .string()
-    .min(2, 'Company name must be at least 2 characters')
-    .max(100, 'Company name must be less than 100 characters'),
+    .min(2, labels.forms.companyNameMinLength)
+    .max(100, labels.forms.companyNameMaxLength),
 })
 
 type SignupFormValues = z.infer<typeof signupSchema>
@@ -63,7 +64,7 @@ export default function SignupPage() {
         setError(result.error)
       }
     } catch {
-      setError('An unexpected error occurred. Please try again.')
+      setError(labels.messages.error.unexpectedError)
     } finally {
       setIsLoading(false)
     }
@@ -79,7 +80,7 @@ export default function SignupPage() {
         setError(result.error)
       }
     } catch {
-      setError('Failed to sign up with Google. Please try again.')
+      setError(labels.messages.error.googleSignUpFailed)
     } finally {
       setIsGoogleLoading(false)
     }
@@ -88,8 +89,8 @@ export default function SignupPage() {
   return (
     <Card>
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl font-bold">Create an account</CardTitle>
-        <CardDescription>Get started with Syncly</CardDescription>
+        <CardTitle className="text-2xl font-bold">{labels.auth.createAccount}</CardTitle>
+        <CardDescription>{labels.auth.getStartedWithSyncly}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {error && (
@@ -126,7 +127,7 @@ export default function SignupPage() {
               />
             </svg>
           )}
-          Continue with Google
+          {labels.auth.continueWithGoogle}
         </Button>
 
         <div className="relative">
@@ -135,7 +136,7 @@ export default function SignupPage() {
           </div>
           <div className="relative flex justify-center text-xs uppercase">
             <span className="bg-background px-2 text-muted-foreground">
-              Or continue with email
+              {labels.auth.orContinueWithEmail}
             </span>
           </div>
         </div>
@@ -147,10 +148,10 @@ export default function SignupPage() {
               name="fullName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Full Name</FormLabel>
+                  <FormLabel>{labels.auth.fullName}</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="John Doe"
+                      placeholder="João Silva"
                       disabled={isLoading}
                       {...field}
                     />
@@ -165,10 +166,10 @@ export default function SignupPage() {
               name="companyName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Company Name</FormLabel>
+                  <FormLabel>{labels.auth.companyName}</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Acme Inc"
+                      placeholder="Empresa Ltda"
                       disabled={isLoading}
                       {...field}
                     />
@@ -183,11 +184,11 @@ export default function SignupPage() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{labels.auth.email}</FormLabel>
                   <FormControl>
                     <Input
                       type="email"
-                      placeholder="john@example.com"
+                      placeholder="joao@exemplo.com"
                       disabled={isLoading}
                       {...field}
                     />
@@ -202,11 +203,11 @@ export default function SignupPage() {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>{labels.auth.password}</FormLabel>
                   <FormControl>
                     <Input
                       type="password"
-                      placeholder="Create a password"
+                      placeholder={labels.auth.createAPassword}
                       disabled={isLoading}
                       {...field}
                     />
@@ -218,15 +219,15 @@ export default function SignupPage() {
 
             <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Create account
+              {labels.auth.createAccount}
             </Button>
           </form>
         </Form>
 
         <p className="text-center text-sm text-muted-foreground">
-          Already have an account?{' '}
+          {labels.auth.alreadyHaveAccount}{' '}
           <Link href="/login" className="text-primary hover:underline">
-            Sign in
+            {labels.auth.signIn}
           </Link>
         </p>
       </CardContent>

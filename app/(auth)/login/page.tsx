@@ -20,10 +20,11 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { login, loginWithGoogle, resetPassword } from '@/lib/auth/actions'
+import { labels } from '@/lib/locales/pt-br'
 
 const loginSchema = z.object({
-  email: z.string().email('Please enter a valid email address'),
-  password: z.string().min(1, 'Password is required'),
+  email: z.string().email(labels.forms.pleaseEnterValidEmail),
+  password: z.string().min(1, labels.forms.passwordRequired),
 })
 
 type LoginFormValues = z.infer<typeof loginSchema>
@@ -35,7 +36,7 @@ export default function LoginPage() {
   const [isResetLoading, setIsResetLoading] = useState(false)
   const [error, setError] = useState<string | null>(
     searchParams.get('error') === 'auth_callback_error'
-      ? 'Authentication failed. Please try again.'
+      ? labels.messages.error.authFailed
       : null
   )
   const [resetSuccess, setResetSuccess] = useState(false)
@@ -59,7 +60,7 @@ export default function LoginPage() {
         setError(result.error)
       }
     } catch {
-      setError('An unexpected error occurred. Please try again.')
+      setError(labels.messages.error.unexpectedError)
     } finally {
       setIsLoading(false)
     }
@@ -75,7 +76,7 @@ export default function LoginPage() {
         setError(result.error)
       }
     } catch {
-      setError('Failed to sign in with Google. Please try again.')
+      setError(labels.messages.error.googleSignInFailed)
     } finally {
       setIsGoogleLoading(false)
     }
@@ -84,7 +85,7 @@ export default function LoginPage() {
   async function handleResetPassword() {
     const email = form.getValues('email')
     if (!email) {
-      setError('Please enter your email address first')
+      setError(labels.messages.error.pleaseEnterEmail)
       return
     }
 
@@ -100,7 +101,7 @@ export default function LoginPage() {
         setShowResetForm(false)
       }
     } catch {
-      setError('Failed to send reset email. Please try again.')
+      setError(labels.messages.error.resetEmailFailed)
     } finally {
       setIsResetLoading(false)
     }
@@ -109,8 +110,8 @@ export default function LoginPage() {
   return (
     <Card>
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl font-bold">Welcome back</CardTitle>
-        <CardDescription>Sign in to your Syncly account</CardDescription>
+        <CardTitle className="text-2xl font-bold">{labels.auth.welcomeBack}</CardTitle>
+        <CardDescription>{labels.auth.signInToAccount}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {error && (
@@ -121,7 +122,7 @@ export default function LoginPage() {
 
         {resetSuccess && (
           <div className="rounded-md bg-green-500/15 p-3 text-sm text-green-600">
-            Password reset email sent! Check your inbox.
+            {labels.auth.passwordResetSent}
           </div>
         )}
 
@@ -153,7 +154,7 @@ export default function LoginPage() {
               />
             </svg>
           )}
-          Continue with Google
+          {labels.auth.continueWithGoogle}
         </Button>
 
         <div className="relative">
@@ -162,7 +163,7 @@ export default function LoginPage() {
           </div>
           <div className="relative flex justify-center text-xs uppercase">
             <span className="bg-background px-2 text-muted-foreground">
-              Or continue with email
+              {labels.auth.orContinueWithEmail}
             </span>
           </div>
         </div>
@@ -174,11 +175,11 @@ export default function LoginPage() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{labels.auth.email}</FormLabel>
                   <FormControl>
                     <Input
                       type="email"
-                      placeholder="john@example.com"
+                      placeholder="joao@exemplo.com"
                       disabled={isLoading}
                       {...field}
                     />
@@ -194,19 +195,19 @@ export default function LoginPage() {
               render={({ field }) => (
                 <FormItem>
                   <div className="flex items-center justify-between">
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>{labels.auth.password}</FormLabel>
                     <button
                       type="button"
                       onClick={() => setShowResetForm(!showResetForm)}
                       className="text-xs text-primary hover:underline"
                     >
-                      Forgot password?
+                      {labels.auth.forgotPassword}
                     </button>
                   </div>
                   <FormControl>
                     <Input
                       type="password"
-                      placeholder="Enter your password"
+                      placeholder={labels.auth.enterYourPassword}
                       disabled={isLoading}
                       {...field}
                     />
@@ -225,21 +226,21 @@ export default function LoginPage() {
                 disabled={isResetLoading}
               >
                 {isResetLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Send reset email
+                {labels.auth.sendResetEmail}
               </Button>
             )}
 
             <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Sign in
+              {labels.auth.signIn}
             </Button>
           </form>
         </Form>
 
         <p className="text-center text-sm text-muted-foreground">
-          Don&apos;t have an account?{' '}
+          {labels.auth.dontHaveAccount}{' '}
           <Link href="/signup" className="text-primary hover:underline">
-            Sign up
+            {labels.auth.signUp}
           </Link>
         </p>
       </CardContent>
