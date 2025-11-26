@@ -31,20 +31,21 @@ import {
 import { useUser } from "@/hooks/use-user"
 import { logout } from "@/lib/auth/actions"
 import { Skeleton } from "@/components/ui/skeleton"
+import { labels } from "@/lib/locales/pt-br"
 
 const navigationItems = [
   {
-    title: "Dashboard",
+    title: labels.nav.dashboard,
     url: "/dashboard",
     icon: Home,
   },
   {
-    title: "Developers",
+    title: labels.nav.developers,
     url: "/developers",
     icon: Users,
   },
   {
-    title: "Settings",
+    title: labels.nav.settings,
     url: "/settings",
     icon: Settings,
   },
@@ -89,7 +90,7 @@ export function AppSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+          <SidebarGroupLabel>{labels.nav.navigation}</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {navigationItems.map((item) => (
@@ -133,13 +134,13 @@ export function AppSidebar() {
               <DropdownMenuItem asChild>
                 <a href="/settings">
                   <Settings className="mr-2 h-4 w-4" />
-                  Settings
+                  {labels.nav.settings}
                 </a>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={handleLogout} className="text-destructive focus:text-destructive">
                 <LogOut className="mr-2 h-4 w-4" />
-                Sign out
+                {labels.auth.signOut}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

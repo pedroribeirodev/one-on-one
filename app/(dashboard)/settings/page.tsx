@@ -1,58 +1,59 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { labels } from "@/lib/locales/pt-br"
 
 export default function SettingsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Settings</h1>
+        <h1 className="text-3xl font-bold tracking-tight">{labels.settings.title}</h1>
         <p className="text-muted-foreground">
-          Manage your account and application preferences
+          {labels.settings.subtitle}
         </p>
       </div>
       
       <div className="grid gap-6">
         <Card>
           <CardHeader>
-            <CardTitle>Profile</CardTitle>
+            <CardTitle>{labels.settings.profile}</CardTitle>
             <CardDescription>
-              Update your personal information
+              {labels.settings.profileDescription}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              Profile settings will be implemented here.
+              {labels.settings.profileSettingsPlaceholder}
             </p>
           </CardContent>
         </Card>
         
         <Card>
           <CardHeader>
-            <CardTitle>Notifications</CardTitle>
+            <CardTitle>{labels.settings.notifications}</CardTitle>
             <CardDescription>
-              Configure how you receive notifications
+              {labels.settings.notificationsDescription}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              Notification settings will be implemented here.
+              {labels.settings.notificationSettingsPlaceholder}
             </p>
           </CardContent>
         </Card>
         
         <Card>
           <CardHeader>
-            <CardTitle>Billing</CardTitle>
+            <CardTitle>{labels.settings.billing}</CardTitle>
             <CardDescription>
-              Manage your subscription and billing
+              {labels.settings.billingDescription}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <p className="text-sm text-muted-foreground">
-              Stripe integration coming soon.
+              {labels.settings.stripeComingSoon}
             </p>
             <Button variant="outline" disabled>
-              Manage Subscription
+              {labels.settings.manageSubscription}
             </Button>
           </CardContent>
         </Card>
